@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+        <title>Weather Widget</title>
+        <link rel="stylesheet" type="text/css" href="weather.css">
+</head>
+<body>
+
+    <div class="weather" id="weatherWidget">
+        <div class="weather-loc" ></div>
+        <div class="weather-humidity"></div>
+        <div class="weather-temp"></div>
+        <img class="weather-tomorrow" />
+        <img class="weather-dayaftertomorrow" />
+    </div>
+    <br>
+    <button type="button" id = "weatherFetcher">Load Weather</button>
+    
+</body>
+
+    <script type="text/javascript">
+        function fetchWeather(){
+            let xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "https://classes.engineering.wustl.edu/cse330/content/weather_json.php", true);
+            xhttp.addEventListener("load", callBack, false);
+            xhttp.send(null);
+        }
+         
+        function callBack(event){
+            document.getElementById("weatherFetcher").addEventListener("click", fetchWeather, false);
+            let data = JSON.parse(event.target.responseText);
+            let loc = document.getElementsByClassName("weather-loc")[0];
+            loc.innerHTML = (data.location.city).bold() + ", " + data.location.state;
+
+            document.getElementsByClassName("weather-humidity")[0].innerHTML = data.atmosphere.humidity;
+			document.getElementsByClassName("weather-temp")[0].innerHTML = data.current.temp;
+			document.getElementsByClassName("weather-tomorrow")[0].src = 'http://us.yimg.com/i/us/nws/weather/gr/'+data.tomorrow.code+'ds.png';
+			document.getElementsByClassName("weather-dayaftertomorrow")[0].src = 'http://us.yimg.com/i/us/nws/weather/gr/'+data.dayafter.code+'ds.png';
+
+        } 
+        document.addEventListener("DOMContentLoaded", fetchWeather, false);
+		document.getElementById("weatherFetcher").addEventListener("click", fetchWeather, false);
+        
+
+    </script>
+
+</html>

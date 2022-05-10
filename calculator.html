@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+        <title>Rajat Calculator JS</title>
+</head>
+<body>
+
+
+    <form>
+
+        <p>1st Number: <input type = "text" name = "num1" id = "first" ></p>
+        <p>2nd Number: <input type = "text" name = "num2" id = "second"></p>
+        <p>
+        <input class = "op" type ="radio" name="op" value = "add" id = "add" checked> +<br>
+        <input class = "op" type ="radio" name="op" value = "subtract" id = "subtract"> -<br>
+        <input class = "op" type ="radio" name="op" value = "multiply" id = "multiply"> *<br>
+        <input class = "op" type ="radio" name="op" value = "divide" id = "divide"> /<br>
+        </p>
+        Answer:
+        <p><span id = "calculate"></span></p>
+    </form>
+</body>
+
+    <script type="text/javascript">
+        function calculate(){
+            let first = Number(document.getElementById("first").value);
+            let second = Number(document.getElementById("second").value);
+            let result = 0;
+            if (document.getElementById("add").checked){
+                result = first + second;
+            }
+            if (document.getElementById("subtract").checked){
+                result = first - second;
+            }
+            if (document.getElementById("multiply").checked){
+                result = first * second;
+            }
+            if (document.getElementById("divide").checked){
+                if(second == 0){
+                    result = "you cannot divide by 0";
+                }
+                else{
+                    result = first / second;
+                }
+                
+            }
+            
+                document.getElementById("calculate").innerHTML = result;
+            
+            
+        };
+
+
+        document.getElementById("first").addEventListener("keyup",calculate, true);
+        document.getElementById("second").addEventListener("keyup",calculate, true);
+        document.getElementById("add").addEventListener("change", calculate, true);
+		document.getElementById("subtract").addEventListener("change", calculate, true);
+		document.getElementById("multiply").addEventListener("change", calculate, true);
+		document.getElementById("divide").addEventListener("change", calculate, true);
+
+    </script>
+
+
+
+
+
+</html>
